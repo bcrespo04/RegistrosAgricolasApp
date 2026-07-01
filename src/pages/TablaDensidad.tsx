@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
-import { PhoneFrame } from "../components/layout/PhoneFrame";
 import { useTablaDensidad } from "../lib/useTablaDensidad";
 
 export default function TablaDensidad() {
@@ -8,8 +7,8 @@ export default function TablaDensidad() {
   const { tabla, cargando, error } = useTablaDensidad();
 
   return (
-    <PhoneFrame>
-      <div className="bg-stone-50">
+
+      <div className="min-h-screen bg-stone-50">
         <div className="bg-amber-600 px-5 pt-5 pb-5 flex items-center gap-3">
           <button onClick={() => navigate("/")} className="text-amber-100 -ml-1" aria-label="Volver">
             <ChevronLeft className="h-6 w-6" />
@@ -59,6 +58,6 @@ export default function TablaDensidad() {
           <p className="text-center text-[11px] text-stone-400 mt-3">Solo lectura · no editable</p>
         </div>
       </div>
-    </PhoneFrame>
+
   );
 }

@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { PhoneFrame } from "../components/layout/PhoneFrame";
 import { EjecucionForm, EJECUCION_INICIAL } from "../components/forms/EjecucionForm";
 import { ResultadoCard } from "../components/confirmation/ResultadoCard";
 import { useTablaDensidad } from "../lib/useTablaDensidad";
@@ -80,7 +79,7 @@ export default function Ejecucion() {
   }
 
   return (
-    <PhoneFrame>
+    <div className="min-h-screen bg-stone-50">
       {paso === "form" ? (
         <EjecucionForm
           valores={valores}
@@ -114,6 +113,6 @@ export default function Ejecucion() {
           )}
         </>
       )}
-    </PhoneFrame>
+    </div>
   );
 }

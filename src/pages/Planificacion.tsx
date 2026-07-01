@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { PhoneFrame } from "../components/layout/PhoneFrame";
 import { PlanificacionForm, PLANIFICACION_INICIAL } from "../components/forms/PlanificacionForm";
 import { ResultadoCard } from "../components/confirmation/ResultadoCard";
 import { useTablaDensidad } from "../lib/useTablaDensidad";
@@ -77,7 +76,7 @@ export default function Planificacion() {
   }
 
   return (
-    <PhoneFrame>
+    <div className="min-h-screen bg-stone-50">
       {paso === "form" ? (
         <PlanificacionForm
           valores={valores}
@@ -111,6 +110,6 @@ export default function Planificacion() {
           )}
         </>
       )}
-    </PhoneFrame>
+    </div>
   );
 }

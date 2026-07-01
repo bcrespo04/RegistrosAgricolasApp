@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, UserCircle2 } from "lucide-react";
-import { PhoneFrame } from "../components/layout/PhoneFrame";
 import type { Usuario } from "../types";
 
 // Nota: requiere agregar la acción "usuarios" en el Apps Script (Code.gs)
@@ -30,8 +29,8 @@ export default function Usuarios() {
   }, []);
 
   return (
-    <PhoneFrame>
-      <div className="bg-stone-50">
+
+      <div className="min-h-screen bg-stone-50">
         <div className="bg-stone-700 px-5 pt-5 pb-5 flex items-center gap-3">
           <button onClick={() => navigate("/")} className="text-stone-200 -ml-1" aria-label="Volver">
             <ChevronLeft className="h-6 w-6" />
@@ -72,6 +71,6 @@ export default function Usuarios() {
             ))}
         </div>
       </div>
-    </PhoneFrame>
+
   );
 }
