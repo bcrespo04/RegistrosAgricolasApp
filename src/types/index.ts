@@ -33,9 +33,10 @@ export interface CapturaBase {
   coyolerosCont: string;
 }
 
-// Planificación: un solo campo TM/Rac
+// Planificación: un solo campo TM/Rac + fecha real de labor
 export interface CapturaPlanificacion extends CapturaBase {
   tmRac: string;
+  fechaLaborDate: string; // formato YYYY-MM-DD
 }
 
 // Ejecución: TM/Rac dividido en enviadas + bacadía
@@ -89,6 +90,7 @@ export interface RegistroPayload extends CalculoResultado {
   tmRacEnviadas?: number;
   tmRacBacadia?: number;
   tmFs: number;
+  fechaLaborDate?: string;
   corterosEmp: number;
   corterosCont: number;
   coyolerosProp: number;

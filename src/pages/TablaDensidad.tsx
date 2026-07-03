@@ -30,7 +30,7 @@ export default function TablaDensidad() {
           )}
           {!cargando && !error && (
             <div className="rounded-2xl bg-white border border-stone-200 overflow-hidden">
-              <div className="grid grid-cols-6 gap-1 bg-stone-100 px-3 py-2 text-[10.5px] font-bold text-stone-500 uppercase tracking-wide">
+              <div className="sticky top-0 grid grid-cols-6 gap-1 bg-stone-100 px-3 py-2 text-[10.5px] font-bold text-stone-500 uppercase tracking-wide z-10">
                 <span>Año</span>
                 <span>Dens</span>
                 <span>HA/J</span>

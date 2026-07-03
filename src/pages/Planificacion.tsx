@@ -57,6 +57,7 @@ export default function Planificacion() {
       hasFs: n(valores.hasFs),
       tmRac: n(valores.tmRac),
       tmFs: n(valores.tmFs),
+      fechaLaborDate: valores.fechaLaborDate || "",
       corterosEmp: n(valores.corterosEmp),
       corterosCont: n(valores.corterosCont),
       coyolerosProp: n(valores.coyolerosProp),

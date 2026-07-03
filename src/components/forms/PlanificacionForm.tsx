@@ -61,6 +61,16 @@ export function PlanificacionForm({ valores, onChange, onBack, onNext }: Planifi
           <NumField label="TM/Rac" value={valores.tmRac} onChange={set("tmRac")} decimals={2} />
         </div>
 
+        <label className="flex flex-col gap-1.5">
+          <span className="text-[13px] font-medium text-stone-600 tracking-wide">Fecha real de labor</span>
+          <input
+            type="date"
+            value={valores.fechaLaborDate}
+            onChange={(e) => set("fechaLaborDate")(e.target.value)}
+            className="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-3 text-[16px] font-medium text-stone-900 outline-none transition focus:border-emerald-600 focus:ring-4 focus:ring-emerald-600/10"
+          />
+        </label>
+
         <div className="grid grid-cols-2 gap-3">
           <NumField label="Corteros emp." value={valores.corterosEmp} onChange={set("corterosEmp")} />
           <NumField label="Corteros cont." value={valores.corterosCont} onChange={set("corterosCont")} />
@@ -106,4 +116,5 @@ export const PLANIFICACION_INICIAL: CapturaPlanificacion = {
   corterosCont: "",
   coyolerosProp: "",
   coyolerosCont: "",
+  fechaLaborDate: "",
 };

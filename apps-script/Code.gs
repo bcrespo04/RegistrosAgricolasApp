@@ -178,8 +178,6 @@ function leerRegistros(tipo, sector) {
 }
 
 // ---------- GUARDAR REGISTRO ----------
-// Inserta SIEMPRE en la fila 2 (debajo del encabezado), empujando los registros
-// existentes hacia abajo — igual comportamiento que el script del Form original.
 function guardarRegistro(payload) {
   const nombreHoja = payload.tipo === "Ejecucion" ? SHEET_EJECUCION : SHEET_PLANIFICACION;
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(nombreHoja);
@@ -187,9 +185,10 @@ function guardarRegistro(payload) {
 
   sheet.insertRowAfter(1);
   const targetRow = 2;
+  sheet.getRange(targetRow, 1, 1, sheet.getLastColumn()).clearFormat();
 
-  // Mapeo de claves del payload -> nombres exactos de columna en el Sheet
-  const mapaComun = {
+  // Campos manuales + calculados virtuales (se envían todos como valores)
+  const campos = {
     "Marca temporal": new Date(payload.marcaTemporal || Date.now()),
     "Codigo Coord": payload.codigoCoord,
     "Edad Siembra": payload.edadSiembra,
@@ -202,6 +201,7 @@ function guardarRegistro(payload) {
     "Corteros emp": payload.corterosEmp,
     "Corteros cont": payload.corterosCont,
     "Coyoleros prop": payload.coyolerosProp,
+    // Calculados virtuales
     "Densidad Rac": payload.densidadRac,
     "Densidad fs": payload.densidadFs,
     "Corteros total": payload.corterosTotal,
@@ -220,15 +220,16 @@ function guardarRegistro(payload) {
   };
 
   if (payload.tipo === "Ejecucion") {
-    mapaComun["TM /Rac enviadas"] = payload.tmRacEnviadas;
-    mapaComun["TM /Rac bacadia"] = payload.tmRacBacadia;
-    mapaComun["Coyoleros cont"] = payload.coyolerosCont; // ojo: minúscula en Ejecucion
+    campos["TM /Rac enviadas"] = payload.tmRacEnviadas;
+    campos["TM /Rac bacadia"] = payload.tmRacBacadia;
+    campos["Coyoleros cont"] = payload.coyolerosCont;
   } else {
-    mapaComun["TM /Rac"] = payload.tmRac;
-    mapaComun["Coyoleros Cont"] = payload.coyolerosCont; // mayúscula en Planificacion
+    campos["TM /Rac"] = payload.tmRac;
+    campos["Coyoleros Cont"] = payload.coyolerosCont;
+    campos["Fecha real de labor"] = payload.fechaLaborDate ? new Date(payload.fechaLaborDate) : "";
   }
 
-  const rowValues = headers.map((h) => (h in mapaComun ? mapaComun[h] : ""));
+  const rowValues = headers.map((h) => (h in campos ? campos[h] : ""));
   sheet.getRange(targetRow, 1, 1, rowValues.length).setValues([rowValues]);
 
   return { ok: true };

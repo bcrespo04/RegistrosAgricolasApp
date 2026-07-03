@@ -115,7 +115,7 @@ export function ResultadoCard({
       </div>
 
       {/* Footer actions */}
-      <div className="px-5 pb-6 pt-2 bg-stone-50 flex gap-3">
+      <div className="px-5 pb-8 pt-4 bg-stone-50 flex gap-3 border-t border-stone-100 mt-2">
         <button
           onClick={onEditar}
           disabled={guardando}
