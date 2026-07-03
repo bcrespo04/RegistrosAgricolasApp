@@ -7,37 +7,41 @@ export default function TablaDensidad() {
   const { tabla, cargando, error } = useTablaDensidad();
 
   return (
-
-      <div className="min-h-screen bg-stone-50">
-        <div className="bg-amber-600 px-5 pt-5 pb-5 flex items-center gap-3">
-          <button onClick={() => navigate("/")} className="text-amber-100 -ml-1" aria-label="Volver">
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <div>
-            <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-amber-100">
-              Referencia
-            </span>
-            <h1 className="text-white text-xl font-bold leading-tight">Tabla densidad</h1>
-          </div>
+    <div className="min-h-screen bg-stone-50 flex flex-col">
+      {/* Header fijo */}
+      <div className="bg-amber-600 px-5 pt-5 pb-5 flex items-center gap-3 shrink-0">
+        <button onClick={() => navigate("/")} className="text-amber-100 -ml-1" aria-label="Volver">
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <div>
+          <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-amber-100">
+            Referencia
+          </span>
+          <h1 className="text-white text-xl font-bold leading-tight">Tabla densidad</h1>
         </div>
+      </div>
 
-        <div className="px-3 py-4 max-h-[70vh] overflow-y-auto">
-          {cargando && (
-            <p className="text-center text-stone-400 text-sm py-8">Cargando...</p>
-          )}
-          {error && (
-            <p className="text-center text-red-600 text-sm py-8 px-4">{error}</p>
-          )}
-          {!cargando && !error && (
-            <div className="rounded-2xl bg-white border border-stone-200 overflow-hidden">
-              <div className="sticky top-0 grid grid-cols-6 gap-1 bg-stone-100 px-3 py-2 text-[10.5px] font-bold text-stone-500 uppercase tracking-wide z-10">
-                <span>Año</span>
-                <span>Dens</span>
-                <span>HA/J</span>
-                <span>TM/C</span>
-                <span>S/ha</span>
-                <span>S/p</span>
-              </div>
+      {/* Contenedor principal flex que ocupa el resto de la pantalla */}
+      <div className="flex-1 flex flex-col px-3 py-4 overflow-hidden">
+        {cargando && (
+          <p className="text-center text-stone-400 text-sm py-8">Cargando...</p>
+        )}
+        {error && (
+          <p className="text-center text-red-600 text-sm py-8 px-4">{error}</p>
+        )}
+        {!cargando && !error && (
+          <div className="flex-1 rounded-2xl bg-white border border-stone-200 overflow-hidden flex flex-col">
+            {/* Encabezado sticky — FUERA del scroll */}
+            <div className="grid grid-cols-6 gap-1 bg-stone-100 px-3 py-2 text-[10.5px] font-bold text-stone-500 uppercase tracking-wide shrink-0">
+              <span>Año</span>
+              <span>Dens</span>
+              <span>HA/J</span>
+              <span>TM/C</span>
+              <span>S/ha</span>
+              <span>S/p</span>
+            </div>
+            {/* Solo los datos hacen scroll */}
+            <div className="overflow-y-auto flex-1">
               {tabla.map((r, i) => (
                 <div
                   key={`${r.anioSiembra}-${r.densidadPlan}`}
@@ -54,10 +58,10 @@ export default function TablaDensidad() {
                 </div>
               ))}
             </div>
-          )}
-          <p className="text-center text-[11px] text-stone-400 mt-3">Solo lectura · no editable</p>
-        </div>
+          </div>
+        )}
+        <p className="text-center text-[11px] text-stone-400 mt-3 shrink-0">Solo lectura · se actualiza cada 24h</p>
       </div>
-
+    </div>
   );
 }

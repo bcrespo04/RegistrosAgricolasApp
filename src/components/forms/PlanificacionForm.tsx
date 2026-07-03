@@ -16,6 +16,25 @@ export function PlanificacionForm({ valores, onChange, onBack, onNext, tablaList
   const set = <K extends keyof CapturaPlanificacion>(key: K) => (v: string) =>
     onChange({ ...valores, [key]: v });
 
+  const camposRequeridos: (keyof CapturaPlanificacion)[] = [
+    "codigoCoord", "edadSiembra", "sector",
+    "rpEstimado", "pesoEstimado",
+    "hasRac", "tmRac",
+    "corterosEmp", "corterosCont",
+    "hasFs", "tmFs",
+    "coyolerosProp", "coyolerosCont",
+  ];
+
+  const hayVacios = camposRequeridos.some((k) => valores[k] === "");
+
+  function handleNext() {
+    if (hayVacios) {
+      alert("Por favor completa todos los campos antes de continuar. Si el valor es cero, escribe 0.");
+      return;
+    }
+    onNext();
+  }
+
   return (
     <div className="bg-stone-50">
       <div className="bg-emerald-700 px-5 pt-5 pb-6">
@@ -104,7 +123,7 @@ export function PlanificacionForm({ valores, onChange, onBack, onNext, tablaList
           </p>
         )}
         <button
-          onClick={onNext}
+          onClick={handleNext}
           className="w-full rounded-2xl bg-emerald-700 py-3.5 text-white font-bold text-[15px] shadow-lg shadow-emerald-700/20 active:scale-[0.98] transition"
         >
           Calcular y revisar
