@@ -13,7 +13,7 @@ const n = (v: string) => parseFloat(v) || 0;
 
 export default function Ejecucion() {
   const navigate = useNavigate();
-  const { tabla } = useTablaDensidad();
+  const { tabla, cargando: cargandoTabla, error: errorTabla } = useTablaDensidad();
   const [paso, setPaso] = useState<Paso>("form");
   const [valores, setValores] = useState<CapturaEjecucion>(EJECUCION_INICIAL);
   const [guardando, setGuardando] = useState(false);

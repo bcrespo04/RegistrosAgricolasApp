@@ -9,12 +9,20 @@ export function useTablaDensidad() {
 
   useEffect(() => {
     let activo = true;
+    setCargando(true);
     obtenerTablaDensidad()
       .then((data) => {
-        if (activo) setTabla(data);
+        if (activo) {
+          setTabla(data);
+          setError(null);
+        }
       })
       .catch((e) => {
-        if (activo) setError(e instanceof Error ? e.message : "Error al cargar Tabla densidad");
+        if (activo) {
+          const msg = e instanceof Error ? e.message : "Error al cargar Tabla densidad";
+          console.error("[useTablaDensidad]", msg);
+          setError(msg);
+        }
       })
       .finally(() => {
         if (activo) setCargando(false);

@@ -8,9 +8,11 @@ interface PlanificacionFormProps {
   onChange: (valores: CapturaPlanificacion) => void;
   onBack: () => void;
   onNext: () => void;
+  tablaLista?: boolean;
+  errorTabla?: string | null;
 }
 
-export function PlanificacionForm({ valores, onChange, onBack, onNext }: PlanificacionFormProps) {
+export function PlanificacionForm({ valores, onChange, onBack, onNext, tablaLista = true, errorTabla }: PlanificacionFormProps) {
   const set = <K extends keyof CapturaPlanificacion>(key: K) => (v: string) =>
     onChange({ ...valores, [key]: v });
 
@@ -90,7 +92,17 @@ export function PlanificacionForm({ valores, onChange, onBack, onNext }: Planifi
         </div>
       </div>
 
-      <div className="px-5 pb-6 pt-2 bg-stone-50">
+      <div className="px-5 pb-6 pt-2 bg-stone-50 space-y-2">
+        {!tablaLista && !errorTabla && (
+          <p className="text-[12px] text-amber-600 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 text-center">
+            Cargando tabla de referencia... los valores plan se calcularán al terminar.
+          </p>
+        )}
+        {errorTabla && (
+          <p className="text-[12px] text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2 text-center">
+            Error cargando tabla: {errorTabla}
+          </p>
+        )}
         <button
           onClick={onNext}
           className="w-full rounded-2xl bg-emerald-700 py-3.5 text-white font-bold text-[15px] shadow-lg shadow-emerald-700/20 active:scale-[0.98] transition"

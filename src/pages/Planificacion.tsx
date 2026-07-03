@@ -13,7 +13,7 @@ const n = (v: string) => parseFloat(v) || 0;
 
 export default function Planificacion() {
   const navigate = useNavigate();
-  const { tabla } = useTablaDensidad();
+  const { tabla, cargando: cargandoTabla, error: errorTabla } = useTablaDensidad();
   const [paso, setPaso] = useState<Paso>("form");
   const [valores, setValores] = useState<CapturaPlanificacion>(PLANIFICACION_INICIAL);
   const [guardando, setGuardando] = useState(false);
@@ -84,6 +84,8 @@ export default function Planificacion() {
           onChange={setValores}
           onBack={() => navigate("/")}
           onNext={() => setPaso("confirm")}
+          tablaLista={!cargandoTabla && tabla.length > 0}
+          errorTabla={errorTabla}
         />
       ) : (
         <>
